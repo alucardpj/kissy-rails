@@ -1,6 +1,6 @@
 module Kissy
   module Rails
-    VERSION = "0.0.1"
+    VERSION = "0.0.2"
     KISSY_VERSION = "1.2.0"
     KISSY_UJS_VERSION = "0.0.1"
   end

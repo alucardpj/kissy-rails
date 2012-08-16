@@ -262,11 +262,11 @@ KISSY.ready(function(S){
   // S.ajaxPrefilter(function(options, originalOptions, xhr){ if ( !options.crossDomain ) { rails.CSRFProtection(xhr); }});
 
   S.Event.delegate(document, 'ajax:complete' , rails.linkDisableSelector, function(e) {
-      rails.enableElement(S.one(e.target));
+    rails.enableElement(S.one(e.target).closest(rails.linkDisableSelector));
   });
 
   S.Event.delegate(document, 'click',rails.linkClickSelector, function(e) {
-    var link = KISSY.one(e.target), method = link.attr('data-method'), data = link.attr('data-params');
+    var link = KISSY.one(e.target).closest(rails.linkClickSelector), method = link.attr('data-method'), data = link.attr('data-params');
     if (!rails.allowAction(link)) {
       return rails.stopEverything(e);
     }
@@ -288,7 +288,7 @@ KISSY.ready(function(S){
   });
 
   S.Event.delegate(document, 'change', rails.inputChangeSelector, function(e) {
-    var link = S.one(e.target);
+    var link = S.one(e.target).closest(rails.inputChangeSelector);
     if (!rails.allowAction(link)) return rails.stopEverything(e);
 
     rails.handleRemote(link);
@@ -297,7 +297,7 @@ KISSY.ready(function(S){
   });
 
   S.Event.delegate(document, 'submit', rails.formSubmitSelector, function(e) {
-    var form = S.one(e.target),
+    var form = S.one(e.target).closest(rails.formSubmitSelector),
       remote = form.attr('data-remote') !== undefined,
       blankRequiredInputs = rails.blankInputs(form, rails.requiredInputSelector),
       nonBlankFileInputs = rails.nonBlankInputs(form, rails.fileInputSelector);
@@ -329,7 +329,7 @@ KISSY.ready(function(S){
   });
 
   S.Event.delegate(document, 'click', rails.formInputClickSelector, function(event) {
-    var button = S.one(event.target);
+    var button = S.one(event.target).closest(rails.formInputClickSelector);
 
     if (!rails.allowAction(button)) return rails.stopEverything(event);
 
